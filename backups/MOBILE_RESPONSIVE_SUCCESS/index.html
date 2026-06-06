@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek Site Generator | Create Your Business Website</title>
+    <meta name="description"
+        content="Instantly generate a professional, modern business website with our intelligent site builder.">
+
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="manifest" href="pwa/manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- PWA Setup -->
+    <link rel="manifest" href="pwa/manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+</head>
+
+<body>
+    <!-- Professional Loading Screen -->
+    <div id="app-loader"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out;">
+        <div
+            style="width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite;">
+        </div>
+        <h2 style="color: white; font-family: 'Outfit', sans-serif; margin-top: 2rem; letter-spacing: 2px;">SITEBUILDER
+            <span style="color: #4f46e5;">AI</span>
+        </h2>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;" id="loader-status">Initializing environment...
+        </p>
+    </div>
+
+    <!-- Editor Sidebar -->
+    <aside class="editor-panel" aria-label="Website Configuration Panel">
+        <header class="editor-header">
+            <h1>SiteBuilder AI</h1>
+            <p>Modern professional website generation in seconds.</p>
+        </header>
+
+        <section class="form-group">
+            <label for="business-name">Business Name</label>
+            <input type="text" id="business-name" name="business-name" placeholder="E.g., Quantum Solutions"
+                value="My Awesome Business" aria-required="true">
+        </section>
+
+        <section class="form-group">
+            <label for="business-logo-file">Business Logo Image</label>
+            <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+                <input type="file" id="business-logo-file" name="business-logo-file" accept="image/*"
+                    style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; cursor: pointer;">
+                <p style="font-size: 0.7rem; color: var(--sidebar-muted);">* High-quality PNG or SVG recommended.</p>
+            </div>
+        </section>
+
+        <section class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <label for="name-color" style="margin-bottom: 0;">Business Name Color</label>
+                <input type="color" id="name-color" name="name-color" value="#0f172a"
+                    style="width: 40px; height: 30px; border: none; padding: 0; background: transparent; cursor: pointer;">
+            </div>
+            <p style="font-size: 0.7rem; color: var(--sidebar-muted);">Customize the color of your business logo and
+                hero title.</p>
+        </section>
+
+        <section class="form-group">
+            <label id="font-label">Business Name Font</label>
+            <div class="font-custom-dropdown" id="font-dropdown" role="combobox" aria-labelledby="font-label"
+                aria-haspopup="listbox" aria-expanded="false">
+                <div class="font-selected-trigger" id="font-trigger-text" tabindex="0">
+                    <span id="active-font-name">Modern: Outfit (Default)</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="font-dropdown-menu" id="font-menu">
+                    <div class="font-item" data-font="'Outfit', sans-serif" style="font-family: 'Outfit', sans-serif;">
+                        Outfit (Default)</div>
+                    <div class="font-item" data-font="'Playfair Display', serif"
+                        style="font-family: 'Playfair Display', serif;">Playfair Display</div>
+                    <div class="font-item" data-font="'Cinzel', serif" style="font-family: 'Cinzel', serif;">Cinzel
+                    </div>
+                    <div class="font-item" data-font="'Cormorant Garamond', serif"
+                        style="font-family: 'Cormorant Garamond', serif;">Cormorant Garamond</div>
+                    <div class="font-item" data-font="'Lora', serif" style="font-family: 'Lora', serif;">Lora</div>
+                    <div class="font-item" data-font="'Montserrat', sans-serif"
+                        style="font-family: 'Montserrat', sans-serif;">Montserrat</div>
+                </div>
+            </div>
+            <p style="font-size: 0.7rem; color: var(--sidebar-muted);">Hover menu items to live preview, click to
+                select.</p>
+        </section>
+
+        <section class="form-group">
+            <label for="header-bg-file">Header Background Image</label>
+            <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+                <input type="file" id="header-bg-file" name="header-bg-file" accept="image/*"
+                    style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; cursor: pointer;">
+                <p style="font-size: 0.7rem; color: var(--sidebar-muted);">* Select an image to use as the header
+                    background watermark.</p>
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label for="header-opacity">Header Background Overlay</label>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="range" id="header-opacity" name="header-opacity" min="0" max="100" value="85"
+                    style="flex: 1; accent-color: var(--primary); cursor: pointer; height: 6px; border-radius: 5px;">
+                <span id="header-opacity-val"
+                    style="font-size: 0.75rem; color: var(--sidebar-muted); font-weight: 700; width: 40px; text-align: right;">85%</span>
+            </div>
+            <p style="font-size: 0.7rem; color: var(--sidebar-muted);">Adjust the transparency of the header background
+                image.</p>
+        </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <section class="form-group">
+                <label for="bg-height">Bg Logo Height</label>
+                <input type="range" id="bg-height" name="bg-height" min="10" max="200" value="100"
+                    style="accent-color: var(--primary); cursor: pointer;">
+                <p style="font-size: 0.6rem; color: var(--sidebar-muted);">Watermark height (%)</p>
+            </section>
+            <section class="form-group">
+                <label for="bg-width">Bg Logo Width</label>
+                <input type="range" id="bg-width" name="bg-width" min="10" max="200" value="100"
+                    style="accent-color: var(--primary); cursor: pointer;">
+                <p style="font-size: 0.6rem; color: var(--sidebar-muted);">Watermark width (%)</p>
+            </section>
+        </div>
+
+        <section class="form-group">
+            <label for="description">Business Description</label>
+            <textarea id="description" name="description" rows="4"
+                placeholder="A brief overview of what you do...">Innovative solutions for modern problems. We specialize in AI-driven analytics that help businesses scale faster.</textarea>
+        </section>
+
+        <section class="form-group">
+            <label for="hero-img-file">Banner Background Image</label>
+            <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+                <input type="file" id="hero-img-file" name="hero-img-file" accept="image/*"
+                    style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; cursor: pointer;">
+                <p style="font-size: 0.7rem; color: var(--sidebar-muted);">
+                    * Select an image from your PC or device.
+                </p>
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label for="template-select">Select Business Type</label>
+            <div class="custom-select-wrapper">
+                <select id="template-select" name="template-select" aria-label="Template Style Picker">
+                    <option value="bakery">Bakery & Cafe</option>
+                    <option value="school">Educational Institution</option>
+                    <option value="fashion">Fashion & Boutique</option>
+                    <option value="pos">POS & Retail Shop</option>
+                    <option value="car_lots">Car Dealership</option>
+                    <option value="estate">Estate Management</option>
+                    <option value="tech">Tech Store & Repair</option>
+                    <option value="grocery">Grocery & Fresh Produce</option>
+                    <option value="pharmacy">Pharmacy & Health</option>
+                    <option value="hospital">Hospital & Medical Clinic</option>
+                    <option value="supermart">Supermarket & Bulk Sales</option>
+                    <option value="custom">Other / Custom Business</option>
+                </select>
+                <i class="fas fa-chevron-down select-icon"></i>
+            </div>
+        </section>
+
+        <section class="form-group" id="custom-business-group"
+            style="display: none; border-left: 3px solid var(--primary); padding-left: 1rem; margin-top: -1rem; margin-bottom: 1rem;">
+            <label for="custom-business-type">Custom Business Type</label>
+            <input type="text" id="custom-business-type" name="custom-business-type"
+                placeholder="e.g. Art Gallery, Pet Store" value="">
+        </section>
+
+        <section class="form-group" style="padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border);">
+            <label>SECTION VISIBILITY</label>
+            <div id="section-controls" style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-home" name="section-home" data-section="home" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-home" style="cursor: pointer;">Home</label>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-services" name="section-services" data-section="services" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-services" style="cursor: pointer;">Services</label>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-products" name="section-products" data-section="products" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-products" style="cursor: pointer;">Products</label>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-gallery" name="section-gallery" data-section="gallery" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-gallery" style="cursor: pointer;">Gallery</label>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-about" name="section-about" data-section="about" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-about" style="cursor: pointer;">About</label>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: white; background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="section-contact" name="section-contact" data-section="contact" checked
+                        style="accent-color: var(--accent); cursor: pointer;">
+                    <label for="section-contact" style="cursor: pointer;">Contact</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label id="theme-label">Brand Accent Color</label>
+            <div class="theme-picker" role="radiogroup" aria-labelledby="theme-label">
+                <!-- Row 1: Vibrant -->
+                <div class="theme-option" style="background: #4f46e5;" data-color="#4f46e5" title="Indigo"></div>
+                <div class="theme-option" style="background: #2563eb;" data-color="#2563eb" title="Royal Blue"></div>
+                <div class="theme-option" style="background: #0891b2;" data-color="#0891b2" title="Cyan"></div>
+                <div class="theme-option" style="background: #0d9488;" data-color="#0d9488" title="Teal"></div>
+                <div class="theme-option" style="background: #059669;" data-color="#059669" title="Emerald"></div>
+                <div class="theme-option" style="background: #16a34a;" data-color="#16a34a" title="Green"></div>
+                <div class="theme-option" style="background: #ca8a04;" data-color="#ca8a04" title="Amber"></div>
+                <div class="theme-option" style="background: #d97706;" data-color="#d97706" title="Orange"></div>
+                <div class="theme-option" style="background: #dc2626;" data-color="#dc2626" title="Red"></div>
+                <div class="theme-option" style="background: #e11d48;" data-color="#e11d48" title="Rose"></div>
+
+                <!-- Row 2: Muted/Pastel -->
+                <div class="theme-option" style="background: #9333ea;" data-color="#9333ea" title="Purple"></div>
+                <div class="theme-option" style="background: #c026d3;" data-color="#c026d3" title="Fuchsia"></div>
+                <div class="theme-option" style="background: #db2777;" data-color="#db2777" title="Pink"></div>
+                <div class="theme-option" style="background: #fb7185;" data-color="#fb7185" title="Soft Rose"></div>
+                <div class="theme-option" style="background: #fda4af;" data-color="#fda4af" title="Peach"></div>
+                <div class="theme-option" style="background: #cbd5e1;" data-color="#cbd5e1" title="Slate"></div>
+                <div class="theme-option" style="background: #94a3b8;" data-color="#94a3b8" title="Muted Blue"></div>
+                <div class="theme-option" style="background: #64748b;" data-color="#64748b" title="Steel"></div>
+                <div class="theme-option" style="background: #475569;" data-color="#475569" title="Charcoal"></div>
+                <div class="theme-option" style="background: #334155;" data-color="#334155" title="Deep Navy"></div>
+
+                <!-- Row 3: Premium/Metals -->
+                <div class="theme-option" style="background: #D4AF37;" data-color="#D4AF37" title="Gold"></div>
+                <div class="theme-option" style="background: #C0C0C0;" data-color="#C0C0C0" title="Silver"></div>
+                <div class="theme-option" style="background: #E5E4E2;" data-color="#E5E4E2" title="Platinum"></div>
+                <div class="theme-option" style="background: #CD7F32;" data-color="#CD7F32" title="Bronze"></div>
+                <div class="theme-option" style="background: #1a1a1a;" data-color="#1a1a1a" title="Pure Black"></div>
+                <div class="theme-option" style="background: #854d0e;" data-color="#854d0e" title="Wood"></div>
+                <div class="theme-option" style="background: #1e293b;" data-color="#1e293b" title="Midnight"></div>
+                <div class="theme-option" style="background: #7c3aed;" data-color="#7c3aed" title="Violet"></div>
+                <div class="theme-option" style="background: #2dd4bf;" data-color="#2dd4bf" title="Aquamarine"></div>
+                <div class="theme-option" style="background: #f59e0b;" data-color="#f59e0b" title="Yellow"></div>
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label for="business-phone">Phone Number</label>
+            <div class="icon-input-wrapper">
+                <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                <input type="tel" id="business-phone" name="business-phone" placeholder="e.g. +234 8023 0088 11"
+                    value="">
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label for="business-address">Business Address</label>
+            <div class="icon-input-wrapper">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <input type="text" id="business-address" name="business-address" placeholder="e.g.  Lagos, Nigeria"
+                    value="">
+            </div>
+        </section>
+
+        <section class="form-group">
+            <label for="business-email">Contact Email</label>
+            <div class="icon-input-wrapper">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <input type="email" id="business-email" name="business-email" placeholder="e.g. hello@mybusiness.com"
+                    value="">
+            </div>
+        </section>
+
+        <section class="form-group"
+            style="padding-top: 1rem; border-top: 1px solid var(--glass-border); margin-top: 1rem;">
+            <label>Service Gallery Manager</label>
+            <div id="service-list" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <!-- Managed via JS -->
+            </div>
+            <button id="add-service-btn"
+                style="background: var(--glass-bg); border: 1px dashed var(--glass-border); color: white; padding: 0.6rem; border-radius: 8px; cursor: pointer; width: 100%; font-size: 0.8rem;">
+                <i class="fas fa-plus"></i> Add New Service/Image
+            </button>
+        </section>
+
+        <section class="form-group">
+            <label for="platform-select">Social Platform</label>
+            <div class="social-selector-container" style="display: flex; gap: 0.5rem; flex-direction: column;">
+                <div class="custom-select-wrapper">
+                    <select id="platform-select" name="platform-select">
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="x-twitter">X (Twitter)</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="telegram">Telegram</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-icon"></i>
+                </div>
+                <label for="social-input" style="font-size: 0.65rem; color: var(--sidebar-muted);">Handle/Link</label>
+                <div class="icon-input-wrapper">
+                    <i id="active-platform-icon" class="fab fa-whatsapp" aria-hidden="true"></i>
+                    <input type="text" id="social-input" name="social-input" placeholder="Enter handle or link..."
+                        value="">
+                </div>
+            </div>
+        </section>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+            <button id="generate-btn" class="publish-btn">
+                <i class="fas fa-magic" style="margin-right: 0.5rem;"></i> Generate Site
+            </button>
+            <button id="publish-btn"
+                style="background: transparent; border: 1px solid var(--glass-border); color: white; padding: 1rem; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s; width: 100%;">
+                <i class="fas fa-download" style="margin-right: 0.5rem;"></i> Download Site (.html)
+            </button>
+        </div>
+
+        <section class="form-group" style="padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+            <label style="display: flex; justify-content: space-between; align-items: center;">
+                VERSION HISTORY (SNAPSHOTS)
+                <div style="display: flex; gap: 0.4rem; align-items: center;">
+                    <button id="clear-snapshots-btn"
+                        style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.6rem; cursor: pointer; font-weight: 600;">
+                        <i class="fas fa-trash-alt"></i> CLEAR ALL
+                    </button>
+                    <button id="take-snapshot-btn"
+                        style="background: var(--accent); border: none; color: white; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.65rem; cursor: pointer; font-weight: 700;">
+                        <i class="fas fa-save" style="margin-right: 0.2rem;"></i> SAVE CURRENT
+                    </button>
+                </div>
+            </label>
+            <div id="snapshot-list"
+                style="display: flex; flex-direction: column; gap: 0.4rem; max-height: 120px; overflow-y: auto; margin-top: 0.5rem; padding-right: 0.2rem;">
+                <!-- Managed via JS -->
+            </div>
+            <p style="font-size: 0.6rem; color: var(--sidebar-muted); margin-top: 0.4rem; font-style: italic;">
+                Snapshots allow you to undo complex changes instantly.
+            </p>
+        </section>
+
+        <footer class="editor-footer">
+            <div
+                style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--glass-border); padding-top: 1rem; margin-top: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="export-json-btn"
+                        style="flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                        <i class="fas fa-file-export"></i> Export Project
+                    </button>
+                    <label for="import-json-file"
+                        style="flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                        <i class="fas fa-file-import"></i> Import Project
+                    </label>
+                    <input type="file" id="import-json-file" name="import-json-file" accept=".json"
+                        style="display: none;">
+                </div>
+                <div id="save-status"
+                    style="font-size: 0.65rem; color: #34d399; opacity: 0; transition: opacity 0.3s; text-align: center;">
+                    <i class="fas fa-check-circle"></i> Progress Auto-Saved
+                </div>
+            </div>
+            <div style="margin-top: 1rem; color: var(--sidebar-muted);">
+                &copy; 2026 SiteBuilder AI. <br>
+                <div style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                    <button id="reset-app-btn"
+                        style="background: transparent; border: none; color: #ef4444; font-size: 0.7rem; cursor: pointer; text-decoration: underline; padding: 0;">
+                        <i class="fas fa-undo-alt"></i> Reset All Data & Start Over
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </aside>
+
+    <!-- Main Preview Area -->
+    <main class="preview-viewport" aria-label="Website Live Preview">
+        <nav class="viewport-controls" aria-label="Device Preview Selection">
+            <button class="control-btn active" data-width="100%" aria-pressed="true">Desktop</button>
+            <button class="control-btn" data-width="768px" aria-pressed="false">Tablet</button>
+            <button class="control-btn" data-width="375px" aria-pressed="false">Mobile</button>
+        </nav>
+
+        <style>
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            #app-loader.hidden {
+                opacity: 0;
+                pointer-events: none;
+                display: none;
+            }
+        </style>
+
+        <div id="preview-iframe-container" class="preview-frame" role="region" aria-live="polite">
+            <div id="preview-content" tabindex="0">
+                <!-- Generated content will be injected here -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('pwa/sw.js')
+                    .then(reg => console.log('Service Worker Registered'))
+                    .catch(err => console.log('Service Worker Failed', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

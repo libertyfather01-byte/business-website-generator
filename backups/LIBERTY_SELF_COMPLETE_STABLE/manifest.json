@@ -1,0 +1,21 @@
+{
+  "name": "Liberty Self Site Builder",
+  "short_name": "Liberty Self",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#4f46e5",
+  "description": "Professional instant website generator for businesses.",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+       "src": "assets/logo.png",
+       "sizes": "512x512",
+       "type": "image/png"
+    }
+  ]
+}
