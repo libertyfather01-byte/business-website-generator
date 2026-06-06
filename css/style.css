@@ -40,8 +40,12 @@ body {
 
 @media (max-width: 768px) {
   body {
-    flex-direction: column;
-    overflow-y: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
   html {
     font-size: 14px; /* Slightly smaller text on mobile */
@@ -78,11 +82,14 @@ body {
 
 @media (max-width: 768px) {
   .editor-panel {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--glass-border);
+    width: 90vw;
+    min-width: 320px;
+    height: 100vh;
+    border-right: 3px solid rgba(59, 130, 246, 0.5); /* Clear divider */
+    border-bottom: none;
     padding: 1.5rem 1rem;
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
 }
 
@@ -396,23 +403,30 @@ body {
 
 @media (max-width: 1024px) {
   body {
-    flex-direction: column;
-    overflow-y: auto;
-    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
   }
   .preview-viewport {
     padding: 5rem 0.5rem 2rem 0.5rem;
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
+    height: 100vh;
+    min-width: 100vw;
+    width: 100vw;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    overflow: hidden;
   }
   #preview-content {
-    height: auto;
-    overflow-y: visible;
+    height: 100%;
+    overflow-y: auto !important;
   }
   .preview-frame {
-    height: auto;
-    overflow: visible;
+    height: 100%;
+    overflow: hidden;
     padding: 0.5rem;
     border-width: 2px;
     border-radius: 12px;
@@ -421,6 +435,8 @@ body {
     width: 90%;
     flex-wrap: wrap;
     border-radius: 20px;
+    position: fixed; /* Keep controls accessible */
+    z-index: 100;
   }
 }
 
