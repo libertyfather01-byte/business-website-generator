@@ -486,14 +486,15 @@ body {
 #preview-content {
   flex-grow: 1;
   width: 100%;
-  max-height: calc(100vh - 9rem); /* Constrain height to force internal scrollbar */
+  max-height: calc(100vh - 9rem);
   overflow-y: auto !important;
   overflow-x: hidden;
   position: relative;
   scroll-behavior: smooth;
   scroll-padding-top: 80px !important;
   -webkit-overflow-scrolling: touch; 
-  outline: none; /* Hide focus ring for keyboard scrolling */
+  outline: none;
+  container-type: inline-size;
   
   /* Firefox Scrollbar support */
   scrollbar-width: thin;
@@ -627,6 +628,7 @@ body {
   overflow-x: hidden;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   margin: 0 auto;
+  container-type: inline-size;
 }
 
 #preview-content::-webkit-scrollbar {

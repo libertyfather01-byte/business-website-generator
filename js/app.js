@@ -919,7 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 #preview-content .free-watermark i { color: #facc15; }
 
-                @media (max-width: 768px) {
+                @container (max-width: 768px) {
                     #preview-content .hero h1 { font-size: 2.2rem; }
                     #preview-content .nav-container { 
                         flex-direction: column; 
